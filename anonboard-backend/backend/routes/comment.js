@@ -43,12 +43,13 @@ router.delete('/:id', authenticate, async (req, res) => {
         if (comment.author.toString() !== req.user.id) {
             return res.status(403).json({ message: 'Unauthorized' });
         }
-        await comment.remove();
+        await comment.deleteOne(); // 수정된 부분
         res.json({ message: 'Comment deleted' });
     } catch (err) {
         console.error('Error deleting comment:', err);
         res.status(400).json({ error: err.message });
     }
 });
+
 
 module.exports = router;

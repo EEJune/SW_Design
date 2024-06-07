@@ -44,12 +44,13 @@ router.delete('/:id', authenticate, async (req, res) => {
         if (post.author.toString() !== req.user.id) {
             return res.status(403).json({ message: 'Unauthorized' });
         }
-        await post.remove();
+        await post.deleteOne(); // 수정된 부분
         res.json({ message: 'Post deleted' });
     } catch (err) {
         console.error('Error deleting post:', err);
         res.status(400).json({ error: err.message });
     }
 });
+
 
 module.exports = router;

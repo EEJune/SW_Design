@@ -221,10 +221,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelectorAll('.delete-comment-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
+                    console.log("합격 1");
                     const commentId = e.target.getAttribute('data-id');
                     const token = localStorage.getItem('token');
+                    console.log("합격2");
                     try {
                         const result = await deleteComment(token, commentId);
+                        console.log("합격3");
                         if (result.message === 'Comment deleted') {
                             alert('Comment deleted');
                             showPostDetail(postId);
