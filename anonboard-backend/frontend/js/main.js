@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function showRegisterForm() {
         mainContentDiv.innerHTML = `
-            <h2>Register</h2>
+            <h1>Register</h1>
             <form id="register-form">
-                <input type="text" id="register-username" placeholder="Username" required />
-                <input type="email" id="register-email" placeholder="Email" required />
-                <input type="password" id="register-password" placeholder="Password" required />
+                <input type="text" class="form-control" id="register-username" placeholder="Username" required />
+                <input type="email" class="form-control" id="register-email" placeholder="Email" required />
+                <input type="password" class="form-control" id="register-password" placeholder="Password" required />
                 <button type="submit">Register</button>
             </form>
         `;
@@ -38,13 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
+    
     async function showLoginForm() {
         mainContentDiv.innerHTML = `
-            <h2>Login</h2>
+            <img src="file:///C:/Users/qnrjs/Desktop/lecture/(진)3-1/SW설계/SW_Design/anonboard-backend/img/You&ME.jpg" alt="Logo" class="logo">
+            <h1>Login</h1>
             <form id="login-form">
-                <input type="email" id="login-email" placeholder="Email" required />
-                <input type="password" id="login-password" placeholder="Password" required />
+                <input type="email" class="form-control" id="login-email" placeholder="Email" required />
+                <input type="password" class="form-control" id="login-password" placeholder="Password" required />
                 <button type="submit">Login</button>
             </form>
         `;
@@ -80,15 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const posts = await getPosts();
             mainContentDiv.innerHTML = `
                 <h2>Posts</h2>
-                <button id="create-post-btn">Create Post</button>
-                <ul id="post-list">
-                    ${posts.map(post => `
-                        <li>
-                            ${post.isAnonymous ? 'Anonymous' : post.author.username}: ${post.title}
-                            <button class="view-post-btn" data-id="${post._id}">View</button>
-                            <button class="delete-post-btn" data-id="${post._id}">Delete</button>
-                        </li>
-                    `).join('')}
+                <button id="create-post-btn" class="btn btn-outline-success">Create Post</button>
+                <ul id="post-list" class="list-group list-group-flush ">
+                ${posts.map(post => `
+                    <li class="list-group-item d-flex justify-content-between align-items-center border border-info">
+                        <span>${post.isAnonymous ? 'Anonymous' : post.author.username}: ${post.title}</span>
+                        <div>
+                            <button class="view-post-btn btn btn-outline-info" data-id="${post._id}">View</button>
+                            <button class="delete-post-btn btn btn-outline-danger" data-id="${post._id}">Delete</button>
+                        </div>
+                    </li>
+                `).join('')}
                 </ul>
             `;
 
@@ -127,9 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
     async function showCreatePostForm() {
         mainContentDiv.innerHTML = `
             <h2>Create Post</h2>
+            <button id="back-to-list-btn" class="btn btn-outline-dark">Back to list</button>
             <form id="create-post-form">
-                <input type="text" id="create-post-title" placeholder="Title" required />
-                <textarea id="create-post-content" placeholder="Content" required></textarea>
+                <input type="text" id="create-post-title" class="border border-danger" placeholder="Title" required />
+                <textarea id="create-post-content" class="border border-info" placeholder="Content" required></textarea>
                 <label>
                     <input type="checkbox" id="create-post-isAnonymous" />
                     Post anonymously
@@ -137,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button type="submit">Create</button>
             </form>
         `;
-
+        document.getElementById('back-to-list-btn').addEventListener('click', showPostList);
         document.getElementById('create-post-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const token = localStorage.getItem('token');
@@ -173,14 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
             mainContentDiv.innerHTML = `
                 <h2>Post Detail</h2>
                 <h3>${post.title}</h3>
-                <p>${post.content}</p>
-                <button id="back-to-list-btn">Back to list</button>
+                <p class="styled-paragraph border border-info">${post.content}</p>
+                <button id="back-to-list-btn" class="btn btn-outline-dark">Back to list</button>
                 <h3>Comments</h3>
                 <ul id="comment-list">
                     ${comments.map(comment => `
                         <li>
                             ${comment.isAnonymous ? 'Anonymous' : comment.author.username}: ${comment.content}
-                            <button class="delete-comment-btn" data-id="${comment._id}">Delete</button>
+                            <button class="delete-comment-btn btn btn-outline-danger small-btn" data-id="${comment._id}">Delete</button>
                         </li>
                     `).join('')}
                 </ul>
@@ -221,13 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelectorAll('.delete-comment-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
-                    console.log("합격 1");
                     const commentId = e.target.getAttribute('data-id');
                     const token = localStorage.getItem('token');
-                    console.log("합격2");
                     try {
                         const result = await deleteComment(token, commentId);
-                        console.log("합격3");
                         if (result.message === 'Comment deleted') {
                             alert('Comment deleted');
                             showPostDetail(postId);

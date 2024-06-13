@@ -1,13 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: white;
     margin: 0;
     padding: 0;
 }
 
 #navbar {
-    background-color: #333;
-    color: white;
+    background-color: #F4EEFF;
     padding: 10px;
     text-align: right;
 }
@@ -15,7 +14,7 @@ body {
 #navbar button {
     background: none;
     border: none;
-    color: white;
+    color: black;
     margin: 0 10px;
     cursor: pointer;
 }
@@ -40,12 +39,36 @@ form input, form textarea, form button {
 }
 
 form button {
-    background-color: #333;
-    color: white;
+    background-color: #F4EEFF;
+    color: black;
     border: none;
     cursor: pointer;
 }
 
 form button:hover {
     background-color: #555;
+}
+#create-post-btn{
+    margin-bottom: 20px;
+}
+.list-group-item {
+    margin-bottom: 10px;
+}
+.small-btn {
+    padding: 1px 6px; 
+    font-size: 12px; 
+}
+p.styled-paragraph {
+    min-height: 200px; 
+    background-color: white;
+}
+#create-post-content{
+    min-height: 200px; 
+}
+.logo {
+    margin-bottom: 20px;
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 150px;
+    height: 150px;
 }
