@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function showLoginForm() {
         mainContentDiv.innerHTML = `
-            <img src="file:///C:/Users/qnrjs/Desktop/lecture/(진)3-1/SW설계/SW_Design/anonboard-backend/img/You&ME.jpg" alt="Logo" class="logo">
+            <img src="../img/You&me.jpg" alt="Logo" class="logo">
             <h1>Login</h1>
             <form id="login-form">
                 <input type="email" class="form-control" id="login-email" placeholder="Email" required />
@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const posts = await getPosts();
             mainContentDiv.innerHTML = `
+                <img src="../img/You&me.jpg" alt="Logo" class="logo">
                 <h2>Posts</h2>
                 <button id="create-post-btn" class="btn btn-outline-success">Create Post</button>
                 <ul id="post-list" class="list-group list-group-flush ">
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function showCreatePostForm() {
         mainContentDiv.innerHTML = `
+            <img src="../img/You&me.jpg" alt="Logo" class="logo">
             <h2>Create Post</h2>
             <button id="back-to-list-btn" class="btn btn-outline-dark">Back to list</button>
             <form id="create-post-form">
@@ -175,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const comments = await getComments(postId);
 
             mainContentDiv.innerHTML = `
+                <img src="../img/You&me.jpg" alt="Logo" class="logo">
                 <h2>Post Detail</h2>
                 <h3>${post.title}</h3>
                 <p class="styled-paragraph border border-info">${post.content}</p>
